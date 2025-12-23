@@ -480,8 +480,10 @@ class OutputFormatter:
     def write_to_file(jobs: List[JobPosting], filename: str):
         """Write jobs to a text file with DIRECT URLs."""
         import os
-        
-        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        # Only create parent directory when a directory component is present.
+        dirpath = os.path.dirname(filename)
+        if dirpath:
+            os.makedirs(dirpath, exist_ok=True)
         
         with open(filename, 'w', encoding='utf-8') as f:
             f.write("=" * 80 + "\n")
